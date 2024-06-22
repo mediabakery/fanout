@@ -17,7 +17,10 @@ import (
 	"github.com/nats-io/nats.go/jetstream"
 )
 
-var defaultTimeout = time.Second * 30
+var (
+	Version        = "dev"
+	defaultTimeout = time.Second * 30
+)
 
 func decrypt(key []byte, encrypted []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
@@ -62,6 +65,7 @@ func mustGetEnv(key, reason string) string {
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+	log.Printf("Starting %s version %s", os.Args[0], Version)
 	targetURL := mustGetEnv("TARGET_URL", "target url")
 	key := []byte(mustGetEnv("KEY", "end2end encryption key"))
 	natsURL := mustGetEnv("NATS_URL", "nats url")
