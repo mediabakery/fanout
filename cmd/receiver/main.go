@@ -99,7 +99,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(1)
 	cons, err := c.Consume(func(msg jetstream.Msg) {
 		log.Printf("Received a JetStream message on subject %s", msg.Subject())
 
@@ -121,7 +120,6 @@ func main() {
 		log.Fatal(err)
 	}
 	defer cons.Stop()
-	log.Println(3)
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, syscall.SIGINT, syscall.SIGTERM)
 	fmt.Println("Blocking, press ctrl+c to continue...")
