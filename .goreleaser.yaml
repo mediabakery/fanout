@@ -8,17 +8,23 @@ before:
     - go mod tidy
 
 builds:
-  - 
-    id: sender
+  - id: sender
     binary: sender
+    goarch:
+      - amd64
+      - arm
+      - arm64
     env:
       - CGO_ENABLED=0
     ldflags:
       - -s -w -X main.Version={{.Version}}
     main: ./cmd/sender/main.go
-  -
-    id: receiver
+  - id: receiver
     binary: receiver
+    goarch:
+      - amd64
+      - arm
+      - arm64
     env:
       - CGO_ENABLED=0
     ldflags:
